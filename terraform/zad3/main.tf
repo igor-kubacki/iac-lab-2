@@ -27,6 +27,15 @@ resource "docker_container" "example-app" {
   }
 }
 
-# resource "docker_container" "db" {
-#   Uzupelnij  
-# }
+resource "docker_container" "db" {
+  name = "db"
+  networks_advanced {
+    name = docker_network.shared.name
+  }
+  image = docker_image.db.image_id
+  env = [
+    "POSTGRES_DB=app",
+    "POSTGRES_USERNAME=app_user",
+    "POSTGRES_PASSWORD=app_pass"
+  ]
+}

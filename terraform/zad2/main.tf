@@ -24,6 +24,11 @@ resource "docker_container" "nginx" {
   }
 }
 
+resource "docker_tag" "tag_0" {
+  source_image = docker_image.nginx.latest
+  target_image = "nginx:web"
+}
+
 output "address" {
   value = "http://localhost:${docker_container.nginx.ports[0].external}"
 }
